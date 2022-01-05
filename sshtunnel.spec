@@ -4,7 +4,7 @@
 #
 Name     : sshtunnel
 Version  : 0.4.0
-Release  : 16
+Release  : 17
 URL      : https://files.pythonhosted.org/packages/8d/ad/4c587adf79865be268ee0b6bd52cfaa7a75d827a23ced072dc5ab554b4af/sshtunnel-0.4.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/8d/ad/4c587adf79865be268ee0b6bd52cfaa7a75d827a23ced072dc5ab554b4af/sshtunnel-0.4.0.tar.gz
 Summary  : Pure python SSH tunnels
@@ -14,11 +14,10 @@ Requires: sshtunnel-bin = %{version}-%{release}
 Requires: sshtunnel-license = %{version}-%{release}
 Requires: sshtunnel-python = %{version}-%{release}
 Requires: sshtunnel-python3 = %{version}-%{release}
-Requires: Sphinx
-Requires: paramiko
-BuildRequires : Sphinx
 BuildRequires : buildreq-distutils3
-BuildRequires : paramiko
+BuildRequires : pypi(paramiko)
+BuildRequires : pypi(setuptools)
+BuildRequires : pypi(wheel)
 
 %description
 |pyversions| |license|
@@ -69,7 +68,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1636417417
+export SOURCE_DATE_EPOCH=1641426574
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -79,14 +78,14 @@ export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
 export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 export MAKEFLAGS=%{?_smp_mflags}
-python3 setup.py build
+python3 -m build --wheel --skip-dependency-check --no-isolation
 
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/sshtunnel
 cp %{_builddir}/sshtunnel-0.4.0/LICENSE %{buildroot}/usr/share/package-licenses/sshtunnel/c267ed1b26b2346424c0cb951ed6cd657ed5caba
-python3 -tt setup.py build  install --root=%{buildroot}
+pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
