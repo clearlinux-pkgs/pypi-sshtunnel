@@ -4,7 +4,7 @@
 #
 Name     : pypi-sshtunnel
 Version  : 0.4.0
-Release  : 22
+Release  : 23
 URL      : https://files.pythonhosted.org/packages/8d/ad/4c587adf79865be268ee0b6bd52cfaa7a75d827a23ced072dc5ab554b4af/sshtunnel-0.4.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/8d/ad/4c587adf79865be268ee0b6bd52cfaa7a75d827a23ced072dc5ab554b4af/sshtunnel-0.4.0.tar.gz
 Summary  : Pure python SSH tunnels
